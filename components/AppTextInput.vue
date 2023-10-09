@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { useField } from "vee-validate";
 import {watchEffect} from "vue";
-const props=defineProps<{
+const props=withDefaults(defineProps<{
   type:'text'|'number'|'tel'|'email'
   name:string,
   placeholder:string,
   label?:string,
   modelValue:string,
-}>()
+  size:'md'|'lg'|'sm'|'xs'
+}>(),{size:'md'})
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void
 
@@ -25,10 +26,23 @@ watch(()=>props.modelValue,(value)=>setValue(value))
     <label class="label">
       <span v-if="label" class="label-text-alt">{{label}}</span>
     </label>
-    <input :autocomplete="false" :type="type" :name="name" :placeholder="placeholder" :class="`input input-bordered w-full max-w-xs ${'input-error'&&errorMessage}`"
-           @input="handleChange" :value="inputVal" @blur="handleBlur"   />
+    <input
+      autocomplete="false"
+      :type="type"
+      :name="name"
+      :placeholder="placeholder"
+      :class="`input input-bordered w-full max-w-xs input-${size}  ${'input-error'&&errorMessage}`"
+      @input="handleChange"
+      :value="inputVal"
+      @blur="handleBlur"
+      v-bind="$attrs"
+    />
     <label class="label">
-      <span v-if="errorMessage" :class="`label-text-alt ${'text-red-500'&&errorMessage} text-red-500`">{{errorMessage}}</span>
+      <span
+        v-if="errorMessage"
+        :class="`label-text-alt ${'text-red-500'&&errorMessage} text-red-500`"
+        >{{errorMessage}}</span
+      >
     </label>
   </div>
 </template>
