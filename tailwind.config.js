@@ -27,6 +27,10 @@ module.exports = {
     "input-lg",
     "input-md",
     "input-sm",
+    "alert-info",
+    "alert-error",
+    "alert-warning",
+    "alert-success",
   ],
   theme: {
     aspectRatio: {
