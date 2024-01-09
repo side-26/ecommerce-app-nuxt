@@ -7,7 +7,7 @@
 <script setup lang="ts">
 const props = withDefaults(
   defineProps<{
-    variant: "primary" | "accent" | "secondary";
+    variant: "primary" | "accent" | "secondary"|"accent"|"link";
     loading?: boolean;
     disabled?: boolean;
   }>(),
