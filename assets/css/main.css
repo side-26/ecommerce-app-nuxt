@@ -1,3 +1,40 @@
+@import url('fonts.css');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer components {
+  body {
+    @apply overflow-y-scroll;
+    direction: rtl;
+    font-family: "iransans" !important;
+    @apply bg-gray-50 text-justify;
+    @apply text-gray-600;
+  }
+  .text-link {
+    @apply text-blue-600 hover:text-blue-700 !important;
+  }
+  .text-body {
+    @apply text-gray-600 !important;
+  }
+  .t-row {
+    @apply flex flex-row items-center;
+  }
+  .t-col {
+    @apply flex flex-col;
+  }
+  .t-center {
+    @apply flex items-center justify-center;
+  }
+  .position-center {
+    @apply absolute top-1/2 right-1/2 transform -translate-y-1/2 translate-x-1/2;
+  }
+  .layout-padding {
+    @apply px-3 lg:px-0;
+  }
+  .head {
+    @apply w-full my-3 font-black prose-lg;
+  }
+  .content-container {
+    @apply px-3 sm:px-12 lg:px-24 my-4 lg:my-6;
+  }
+}

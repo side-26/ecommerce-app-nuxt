@@ -1,0 +1,138 @@
+<template>
+  <!-- intro content -->
+  <section>
+    <div class="homeIntroBg relative text-white">
+      <div
+        class="absolute bg-opacity-70 w-full h-full left-0 top-0 bg-black"
+      ></div>
+      <div
+        class="relative z-10 px-11 pt-11 pb-32 flex text-right xl:w-1/2 leading-10 mx-auto"
+      >
+        <div class="text-lg">
+          <h1 class="text-2xl mb-5 w-3/4 tracking-normal">
+            آموزش تخصصی vue js و nuxt js
+          </h1>
+          <p class="my-7 leading-7">
+            به دنیای برنامه نویسی آکادمی لند خوش آمدی، آموزش پروژه محور برنامه
+            نویسی با طعم تجربه!
+          </p>
+          <AppButton
+            variant="accent"
+            class="px-12 hover:bg-white text-black btn-wide font-thin"
+          >
+            شروع یادگیری
+          </AppButton>
+        </div>
+      </div>
+    </div>
+    <div class="flex gap-5 -translate-y-1/2 justify-center items-center">
+      <div
+        v-for="(item, index) in 3"
+        :key="index"
+        class="bg-white shadow-sm p-5 rounded-xl flex items-center gap-2 lg:max-w-[22rem]"
+      >
+        <div class="text-secondary mb-8">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-10 h-10"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
+            />
+          </svg>
+        </div>
+        <div>
+          <h4 class="">تجربه عملی مدرس</h4>
+          <p class="mt-[9px]">
+            سال ها تجربه برنامه نویسی در قالب دوره های آموزشی منتظر شماست
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- coureses content -->
+  <section class="lg:mx-10">
+    <div class="head text-center">
+      <h3>دوره های آکادمی لند</h3>
+    </div>
+    <AppSlider :items="data">
+      <template #item="{item}">
+        <CourseCard
+          :key="item.id"
+          to="/"
+          class="relative lg:max-w-[27rem] w-[25.1rem] overflow-hidden"
+        >
+          <template #header>
+            <div class="aspect-w-40 aspect-h-21">
+              <div
+                class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-5 "
+              ></div>
+              <NuxtImg :src="item?.src" class="h-full w-full" />
+            </div>
+            <div
+              v-if="item?.percent"
+              class="absolute top-2 left-0 bg-secondary rounded-r-full font-bold text-white px-2 py-1  text-sm z-10"
+            >
+              {{ item?.percent }} %
+            </div>
+          </template>
+          <template #body>
+            <div class="bg-accent p-5">
+              <h3 class="pb-4 line-clamp-2 hover:text-primary transition">
+                {{ item?.title }}
+              </h3>
+              <p class="line-clamp-4 min-h-[6rem] prose-sm">
+                {{item?.short_description}}
+              </p>
+            </div>
+          </template>
+          <template #actions>
+            <div class="p-5 flex justify-between bg-white ">
+              <AppButton
+                variant="primary"
+                class="text-white btn-sm  font-light prose-base"
+              >
+                اضافه به سبد خرید
+              </AppButton>
+              <div class="flex items-center gap-5">
+                <AppPriceNumber
+                  :price="item?.amount"
+                  class="line-through prose-sm"
+                />
+
+                <AppPriceNumber
+                  :price="item?.amountOff"
+                  :needCurrency="true"
+                  class="prose-sm"
+                  currencyClass="prose-xs"
+                />
+              </div>
+            </div>
+          </template>
+        </CourseCard>
+      </template>
+    </AppSlider>
+  </section>
+</template>
+<script setup lang="ts">
+import { useCourseService } from '~/composables/course/useCourse.service';
+
+const counter=ref<number>(1)
+const {getCoursesList}=useCourseService()
+const {data,pending}=useLazyAsyncData(()=>getCoursesList(),{server:false})
+</script>
+<style lang="css">
+.homeIntroBg{
+  background-image: url('~/assets/img/images/home-header-background.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-origin: initial;
+}
+</style>

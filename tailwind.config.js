@@ -23,6 +23,14 @@ module.exports = {
     "bg-success",
     "bg-warning",
     "bg-error",
+    "input-xs",
+    "input-lg",
+    "input-md",
+    "input-sm",
+    "alert-info",
+    "alert-error",
+    "alert-warning",
+    "alert-success",
   ],
   theme: {
     aspectRatio: {

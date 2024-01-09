@@ -1,5 +1,6 @@
 <template>
-  <div>
-    <NuxtWelcome />
+  <div dir="rtl">
+    <NuxtLayout> </NuxtLayout>
+    <TheAppToast />
   </div>
 </template>
