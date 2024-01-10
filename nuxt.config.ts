@@ -5,17 +5,15 @@ import { PROXY_CONFIG } from "./configs/api.config";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  css: ['~/assets/css/main.css'],
+  css: ["~/assets/css/main.css"],
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
-  modules: [
-    '@nuxt/image',
-  ],
+  modules: ["@nuxt/image", "@nuxtjs/device"],
   nitro: {
-    devProxy: PROXY_CONFIG
-  }
-})
+    devProxy: PROXY_CONFIG,
+  },
+});
