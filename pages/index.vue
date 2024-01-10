@@ -6,13 +6,13 @@
         class="absolute bg-opacity-70 w-full h-full left-0 top-0 bg-black"
       ></div>
       <div
-        class="relative z-10 px-11 pt-11 pb-32 flex text-right xl:w-1/2 leading-10 mx-auto"
+        class="relative z-10 px-11 pt-11 pb-10 lg:pb-32  flex text-right xl:w-1/2 leading-10 mx-auto"
       >
         <div class="text-lg">
-          <h1 class="text-2xl mb-5 w-3/4 tracking-normal">
+          <h1 class="text-xl md:text-2xl mb-5 md:w-3/4 tracking-normal">
             آموزش تخصصی vue js و nuxt js
           </h1>
-          <p class="my-7 leading-7">
+          <p class="my-7 leading-7 text-base md:text-lg">
             به دنیای برنامه نویسی آکادمی لند خوش آمدی، آموزش پروژه محور برنامه
             نویسی با طعم تجربه!
           </p>
@@ -25,11 +25,13 @@
         </div>
       </div>
     </div>
-    <div class="flex gap-5 -translate-y-1/2 justify-center items-center">
+    <div
+      class="flex flex-wrap gap-5 lg:-translate-y-1/2 justify-center items-center m-4 lg:my-0"
+    >
       <div
         v-for="(item, index) in 3"
         :key="index"
-        class="bg-white shadow-sm p-5 rounded-xl flex items-center gap-2 lg:max-w-[22rem]"
+        class="bg-white shadow-sm p-5 rounded-xl flex items-center gap-2 lg:max-w-[22rem] border-gray-200 lg:border-none border-[1px]"
       >
         <div class="text-secondary mb-8">
           <svg
@@ -38,7 +40,7 @@
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="w-10 h-10"
+            class="lg:w-10 lg:h-10 w-12 h-12"
           >
             <path
               stroke-linecap="round"
@@ -47,7 +49,7 @@
             />
           </svg>
         </div>
-        <div>
+        <div class="text-sm lg:text-base">
           <h4 class="">تجربه عملی مدرس</h4>
           <p class="mt-[9px]">
             سال ها تجربه برنامه نویسی در قالب دوره های آموزشی منتظر شماست
@@ -93,19 +95,18 @@
             </div>
           </template>
           <template #actions>
-            <div class="p-5 flex justify-between bg-white ">
+            <div class="p-5 flex flex-col lg:flex-row justify-between bg-white ">
               <AppButton
                 variant="primary"
-                class="text-white btn-sm  font-light prose-base"
+                class="text-white btn-sm font-light prose-base order-2 lg:order-1 mt-4 lg:mt-0"
               >
                 اضافه به سبد خرید
               </AppButton>
-              <div class="flex items-center gap-5">
+              <div class="flex items-center gap-5 order-1  lg:order-2">
                 <AppPriceNumber
                   :price="item?.amount"
                   class="line-through prose-sm"
                 />
-
                 <AppPriceNumber
                   :price="item?.amountOff"
                   :needCurrency="true"

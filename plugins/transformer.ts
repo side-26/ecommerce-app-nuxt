@@ -1,3 +1,3 @@
-import "~/node_modules/reflect-metadata/Reflect.js"
-export default defineNuxtPlugin(() => {
+import "reflect-metadata";
+export default defineNuxtPlugin((nuxtApp) => {
 })
