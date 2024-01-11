@@ -2,7 +2,7 @@
 import { useField } from "vee-validate";
 import {watchEffect} from "vue";
 const props=withDefaults(defineProps<{
-  type:'text'|'number'|'tel'|'email'
+  type:'text'|'number'|'tel'|'email'|'password'
   name:string,
   placeholder:string,
   label?:string,
@@ -22,16 +22,16 @@ watch(()=>props.modelValue,(value)=>setValue(value))
 </script>
 
 <template>
-  <div class="form-control w-full max-w-xs">
+  <div class="form-control w-full">
     <label class="label">
-      <span v-if="label" class="label-text-alt">{{label}}</span>
+      <span v-if="label" class="label-text">{{label}}</span>
     </label>
     <input
       autocomplete="false"
       :type="type"
       :name="name"
       :placeholder="placeholder"
-      :class="`input input-bordered w-full max-w-xs input-${size}  ${'input-error'&&errorMessage}`"
+      :class="`input input-bordered w-full input-${size}  ${'input-error'&&errorMessage}`"
       @input="handleChange"
       :value="inputVal"
       @blur="handleBlur"
