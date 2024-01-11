@@ -1,7 +1,7 @@
 import { Expose } from "class-transformer"
 export class BaseCourseDto {
-    @Expose()
-    id: number
+    // @Expose()
+    // id: number
     // @Expose()
     // amount: number
     // @Expose()
