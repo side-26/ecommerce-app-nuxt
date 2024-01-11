@@ -2,18 +2,18 @@
   <dialog
     @click="closeModal"
     id="my_modal_1"
-    :class="`modal ${isMoalOpen&&'modal-open'}`"
+    :class="`modal ${modelValue && 'modal-open'}`"
     v-bind="$attrs"
   >
     <div @click.stop="" class="modal-box">
       <slot name="title"
-        ><h3 class="font-bold text-lg">{{title}}</h3></slot
+        ><h3 class="font-bold text-lg">{{ title }}</h3></slot
       >
 
       <slot name="body"
-        ><p>{{desc }}</p></slot
+        ><p>{{ desc }}</p></slot
       >
-      <div class="modal-action">
+      <div class="">
         <!-- {{slots.action&&
         <form method="dialog">
           <slot name="action"></slot>
@@ -25,10 +25,17 @@
   </dialog>
 </template>
 <script setup lang="ts">
-import { useModal } from '~/composables/useModal';
-const props=defineProps<{
-  title?:string,
-  desc?:string
-}>()
-const {isMoalOpen,closeModal}=useModal()
+const props = withDefaults(
+  defineProps<{
+    title?: string
+    desc?: string
+    modelValue: boolean
+  }>(),
+  { modelValue: false }
+)
+const emit = defineEmits(['update:modelValue'])
+const closeModal = () => {
+  emit('update:modelValue', false)
+}
 </script>
+<app-text-input name="username" type="text" label="نام کاربری" placeholder="شماره موبایل یا ایمیل را وارد کنید..."/>
