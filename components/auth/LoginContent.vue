@@ -1,12 +1,20 @@
 <script setup lang="ts">
+import { Form } from 'vee-validate'
+import { loginSchema } from '~/configs/form.validation'
 // @ts-ignore
 import type { AuthContent } from '~/types/auth'
 const emit = defineEmits<{
   (e: 'toggleAuthContent', authCon: AuthContent): void
 }>()
+import { useLogin } from '~/composables/auth/login/useLogin'
+import { LoginValues } from '~/types/auth/login'
+const { login, submitting } = useLogin()
+const onSubmit = (values: LoginValues) => {
+  login(values)
+}
 </script>
 <template>
-  <form>
+  <Form :validation-schema="loginSchema" @submit="onSubmit">
     <section>
       <div>
         <app-text-input
@@ -35,7 +43,14 @@ const emit = defineEmits<{
           کلمه عبور خود را فراموش کرده ام
         </app-button>
       </div>
-      <app-button class="w-full btn-secondary text-white"> ورود</app-button>
+      <app-button
+        type="submit"
+        :disabled="submitting"
+        :loading="submitting"
+        class="w-full btn-secondary text-white"
+      >
+        ورود</app-button
+      >
       <div class="flex justify-center py-2.5 bg-gray-100 mt-4">
         <app-button
           @click="$emit('toggleAuthContent', 'register')"
@@ -46,5 +61,5 @@ const emit = defineEmits<{
         >
       </div>
     </section>
-  </form>
+  </Form>
 </template>
