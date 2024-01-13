@@ -11,10 +11,10 @@
 <script setup lang="ts">
 const props = withDefaults(
   defineProps<{
-    variant: 'primary' | 'accent' | 'secondary' | 'accent' | 'link' | 'ghost'
+    variant?: 'primary' | 'accent' | 'secondary' | 'accent' | 'link' | 'ghost'
     loading?: boolean
     disabled?: boolean
-    type: 'button' | 'submit' | 'reset'
+    type?: 'button' | 'submit' | 'reset'
   }>(),
   {
     variant: 'primary',
