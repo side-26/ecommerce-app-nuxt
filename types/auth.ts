@@ -1,1 +1,0 @@
-export type AuthContent='login' | 'register' | 'forgetPass'
