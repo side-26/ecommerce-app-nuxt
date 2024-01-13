@@ -12,7 +12,10 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["@nuxt/image", "@nuxtjs/device"],
+  modules: ["@nuxt/image", "@nuxtjs/device",'@pinia/nuxt'],  
+  pinia: {
+    storesDirs: ['./stores/**', './custom-folder/stores/**'],
+  },
   nitro: {
     devProxy: PROXY_CONFIG,
   },
