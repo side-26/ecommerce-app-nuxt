@@ -4,10 +4,10 @@ import {watchEffect} from "vue";
 const props=withDefaults(defineProps<{
   type:'text'|'number'|'tel'|'email'|'password'
   name:string,
-  placeholder:string,
+  placeholder?:string,
   label?:string,
-  modelValue:string,
-  size:'md'|'lg'|'sm'|'xs'
+  modelValue?:string,
+  size?:'md'|'lg'|'sm'|'xs'
 }>(),{size:'md'})
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void
@@ -18,7 +18,7 @@ const {meta,errorMessage,setValue,value:inputVal,handleBlur,handleChange}=useFie
   initialValue:props.modelValue
 })
 watchEffect(()=>{emit('update:modelValue',unref(inputVal))})
-watch(()=>props.modelValue,(value)=>setValue(value))
+watch(()=>props.modelValue,(value)=>setValue(value!))
 </script>
 
 <template>
