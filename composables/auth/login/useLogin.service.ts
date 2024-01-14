@@ -9,17 +9,20 @@ export const useLoginService = () => {
     { password, username }: LoginValues,
     customConfig: FetchCustomConfig
   ) => {
-    return fetchApi("/oauth2/rest/token", {
-      method: "POST",
-      body: {
-        password,
-        username,
-        grant_type: "password",
-        client_id: CLIENT_ID,
-        client_secret: CLIENT_SECRET,
+    return fetchApi(
+      "/oauth2/rest/token",
+      {
+        method: "POST",
+        body: {
+          password,
+          username,
+          grant_type: "password",
+          client_id: CLIENT_ID,
+          client_secret: CLIENT_SECRET,
+        },
       },
-      ...customConfig,
-    });
+      customConfig
+    );
   };
   return { loginService };
 };

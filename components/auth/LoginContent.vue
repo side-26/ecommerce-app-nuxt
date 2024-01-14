@@ -8,7 +8,7 @@ const emit = defineEmits<{
 }>()
 import { useLogin } from '~/composables/auth/login/useLogin'
 import { LoginValues } from '~/types/auth/login'
-const { login, submitting } = useLogin()
+const { login, submitting, error: loginErr } = useLogin()
 const onSubmit = (values: LoginValues) => {
   login(values)
 }
@@ -17,6 +17,9 @@ const onSubmit = (values: LoginValues) => {
   <Form :validation-schema="loginSchema" @submit="onSubmit">
     <section>
       <div>
+        <app-error v-if="loginErr">
+          {{ loginErr }}
+        </app-error>
         <app-text-input
           name="username"
           type="text"

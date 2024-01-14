@@ -5,7 +5,6 @@ import { useAuthStore } from "~/store/Auth.store";
 
 export const useFetchData = <R, T>() => {
   const authStore = useAuthStore();
-
   const customFetch = (
     url: string,
     config: FetchOptions,
