@@ -16,7 +16,7 @@ const toggleMenu = () => {
 
 <template>
   <section class="flex flex-col flex-1 min-h-screen">
-    <header class="w-full sticky top-0 z-10 bg-white">
+    <header class="w-full bg-white relative">
       <nav
         class="flex justify-between items-center px-5 md:px-10 py-2.5 text-lg"
       >
@@ -69,14 +69,14 @@ const toggleMenu = () => {
                 </app-button>
                 <ul
                   v-show="isAccountMenuOpen"
-                  class="flex flex-col gap-1 absolute -bottom-[105px] transition bg-white z-20 rounded-md overflow-hidden shadow-sm"
+                  class="flex flex-col gap-1 absolute -bottom-[105px] transition z-[100000] bg-white rounded-md overflow-hidden shadow-sm"
                 >
-                  <li class="border-b-[1px] border-gray-200 p-3">
+                  <li class="border-b-[1px] border-gray-200 p-3 cursor-pointer">
                     <nuxt-link :to="ROUTES.profile" class="text-center text-sm">
                       پروفایل
                     </nuxt-link>
                   </li>
-                  <li class="border-b-[1px] border-gray-200 p-3">
+                  <li class="border-b-[1px] border-gray-200 p-3 cursor-pointer">
                     <nuxt-link
                       @click="logout"
                       class="text-center text-sm text-red-500"
