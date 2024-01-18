@@ -1,5 +1,5 @@
 import { FetchCustomConfig } from "~/types/fetch";
-import { useFetchData } from "./useFetch";
+import { useFetchData } from "./useFetchData";
 import { Identity } from "~/types/auth";
 export const useIdentityService = () => {
   const fetchApi = useFetchData<any, Identity>();
