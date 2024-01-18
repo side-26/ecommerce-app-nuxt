@@ -1,3 +1,4 @@
+import { BASE_URL } from "./configs/api.config";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 import { PROXY_CONFIG } from "./configs/api.config";
@@ -12,9 +13,9 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["@nuxt/image", "@nuxtjs/device",'@pinia/nuxt'],  
+  modules: ["@nuxt/image", "@nuxtjs/device", "@pinia/nuxt"],
   pinia: {
-    storesDirs: ['./stores/**', './custom-folder/stores/**'],
+    storesDirs: ["./stores/**", "./custom-folder/stores/**"],
   },
   nitro: {
     devProxy: PROXY_CONFIG,
