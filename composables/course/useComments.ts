@@ -4,15 +4,14 @@ import { useCommentsService } from "./useComments.service";
 import { CommentBody } from "~/types/comments";
 import { FetchCustomConfig } from "~/types/fetch";
 
-export const useGetComments = async (courseDetail: Ref<CourseDetails>) => {
+export const useGetComments = async (courseId: number | undefined) => {
   const { getCommentsService } = useCommentsService();
 
   const { data, pending } = await useAppAsyncData(
     "comments" + "courseId",
-    () => getCommentsService(courseDetail?.value.id as number),
+    () => getCommentsService(courseId as number),
     {
-      server: true,
-      watch: [courseDetail],
+      server: false,
     }
   );
   return { data, pending };
