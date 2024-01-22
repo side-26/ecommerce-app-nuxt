@@ -2,7 +2,7 @@ export type AuthContent = "login" | "register" | "forgetPass";
 export interface Token {
   accessToken: string | null;
   expiresIn: number | null;
-  tokenType: string | null;
+  // tokenType: string | null;
   refreshToken: string | null;
 }
 export interface Identity {
@@ -18,7 +18,14 @@ export interface AuthResponse {
   refresh_token: string | null;
   identity: Identity;
 }
-export interface AuthState extends AuthResponse {
+export interface AuthStore{
+  accessToken: string | null;
+  expiresIn: number | null;
+  // tokenType: string | null;
+  refreshToken: string | null;
+  identity: Identity;
+}
+export interface AuthState extends AuthStore {
   isRefreshing: boolean;
   isRefreshSuccess: boolean;
 }
