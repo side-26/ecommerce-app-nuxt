@@ -44,20 +44,20 @@ export const courseDetailsNavbar = [
   {
     id: 2,
     title: "پیش نیازهای دوره",
-    to: "#prerequisite_courses",
-    elementId: "prerequisite_courses",
+    to: "#prerequisite_course",
+    elementId: "prerequisite_course",
   },
   {
     id: 3,
     title: "لیست ویدیو ها",
-    to: "#courses_list",
-    elementId: "courses_list",
+    to: "#course_list",
+    elementId: "course_list",
   },
   {
     id: 4,
     title: "پرسش های متداول",
-    to: "#FAQ",
-    elementId: "FAQ",
+    to: "#popular_questions",
+    elementId: "popular_questions",
   },
   {
     id: 5,
