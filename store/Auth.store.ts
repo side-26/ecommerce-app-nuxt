@@ -8,7 +8,6 @@ const initalAuthState = (): AuthState => ({
   isRefreshing: false,
   isRefreshSuccess: false,
   refreshToken: null,
-  tokenType: null,
 });
 
 export const useAuthStore = defineStore("auth", {
@@ -33,6 +32,12 @@ export const useAuthStore = defineStore("auth", {
     },
     setIdentity(identityObj: Identity) {
       this.identity = identityObj;
+    },
+    toggleRefreshingState(value:boolean){
+      this.isRefreshing=value
+    },
+    toggleSuccessRefreshingState(value:boolean){
+      this.isRefreshSuccess=value
     },
     clearStore(clearLocal: boolean = true) {
       Object.assign(this, initalAuthState());
