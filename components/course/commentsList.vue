@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { CourseComment } from '~/types/comments'
-const courseComments: CourseComment = inject('course-comments')!
+const props = defineProps<{
+  commentsList: CourseComment[]
+}>()
 </script>
 <template lang="">
   <section
@@ -11,7 +13,7 @@ const courseComments: CourseComment = inject('course-comments')!
       last_name,
       createdDate,
       children
-    } in courseComments"
+    } in commentsList"
     :key="id"
   >
     <div

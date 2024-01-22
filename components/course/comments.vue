@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate'
-import { useCreateComment } from '~/composables/course/useComments'
+import {
+  useCreateComment,
+  useGetComments
+} from '~/composables/course/useComments'
 import { commentSchema } from '~/configs/form.validation'
 import { CommentBody } from '~/types/comments'
 const props = defineProps<{
   courseId: number | undefined
 }>()
 const { createComment, sumbitting } = useCreateComment()
+const { data: commentsData, pending } = await useGetComments(props.courseId)
 const onSubmit = (values: CommentBody, actions) => {
   values.course_id = props.courseId!
   createComment(values, actions)
@@ -46,6 +50,6 @@ const onSubmit = (values: CommentBody, actions) => {
       ثبت نظر
     </app-button>
   </Form>
-  <courses-comments-list />
+  <lazy-course-comments-list v-if="commentsData" :comments-list="commentsData"/>
 </template>
 <style lang=""></style>
