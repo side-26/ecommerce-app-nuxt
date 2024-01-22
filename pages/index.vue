@@ -1,4 +1,4 @@
-<template>
+<template lang="">
   <!-- intro content -->
   <section>
     <div class="homeIntroBg relative text-white">
@@ -124,12 +124,13 @@
 <script setup lang="ts">
 import { useCourseService } from '~/composables/course/useCourse.service'
 import { ROUTES } from '~/configs/constants'
+const { getCourseList } = useCourseService()
+const { data, pending, error, execute } = useLazyAsyncData(
+  'course-list',
+  () => getCourseList(),
+  { server: true}
+)
 
-const counter = ref<number>(1)
-const { getCoursesList } = useCourseService()
-const { data, pending } = useLazyAsyncData(() => getCoursesList(), {
-  server: false
-})
 </script>
 <style lang="css">
 .homeIntroBg {
