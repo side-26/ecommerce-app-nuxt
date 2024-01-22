@@ -9,7 +9,7 @@ export default <RouterConfig>{
       console.log("to.hash: ", to.hash);
       return {
         el: to.hash,
-        top:30,
+        top:130,
         behavior: "smooth",
       };
     }
@@ -20,7 +20,7 @@ export default <RouterConfig>{
     if (to === from) {
       return {
         left: 0,
-        top: 30,
+        top: 130,
         behavior: "smooth",
       };
     }
@@ -30,7 +30,7 @@ export default <RouterConfig>{
       setTimeout(() => {
         resolve({
           left: savedPosition?.left || 0,
-          top: savedPosition?.top || 30,
+          top: savedPosition?.top || 130,
         });
       }, 500);
     });
