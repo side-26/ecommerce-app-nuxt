@@ -2,7 +2,7 @@
 import { Ref } from 'vue'
 
 const props = defineProps<{
-  src: string
+  src: string | undefined
   containerClass: string
 }>()
 const imgSrc: Ref<string> = computed(() => {

@@ -1,3 +1,17 @@
+<script setup lang="ts">
+const props = withDefaults(
+  defineProps<{
+    title?: string
+    desc?: string
+    modelValue: boolean
+  }>(),
+  { modelValue: false }
+)
+const emit = defineEmits(['update:modelValue'])
+const closeModal = () => {
+  emit('update:modelValue', false)
+}
+</script>
 <template>
   <dialog
     @click="closeModal"
@@ -24,18 +38,3 @@
     </div>
   </dialog>
 </template>
-<script setup lang="ts">
-const props = withDefaults(
-  defineProps<{
-    title?: string
-    desc?: string
-    modelValue: boolean
-  }>(),
-  { modelValue: false }
-)
-const emit = defineEmits(['update:modelValue'])
-const closeModal = () => {
-  emit('update:modelValue', false)
-}
-</script>
-<app-text-input name="username" type="text" label="نام کاربری" placeholder="شماره موبایل یا ایمیل را وارد کنید..."/>
