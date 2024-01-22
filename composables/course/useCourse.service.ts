@@ -1,13 +1,32 @@
-import { instanceToPlain, plainToClass, plainToInstance } from "class-transformer"
-import { BaseCourseDto } from "./course.dto"
+import {
+  instanceToPlain,
+  plainToClass,
+  plainToInstance,
+} from "class-transformer";
+import { BaseCourseDto } from "./course.dto";
 
 export const useCourseService = () => {
-    const $fetch = useFetchData()
-    const getCoursesList = () => {
-        return $fetch('/course/index?expand=src,percent,slug').then((res) => {
-            const instance = plainToInstance(BaseCourseDto, res, { excludeExtraneousValues: true })
-            return res
-        })
-    }
-    return { getCoursesList }
-}
+  const fetch = useFetchData();
+  const getCourseList = () => {
+    return fetch("/course/index?expand=src,percent,slug", {
+      method: "get",
+    }).then((res) => {
+      return res;
+    });
+  };
+  return { getCourseList };
+};
+
+export const useCheckCanBuyService = () => {
+  const fetch = useFetchData<any, number>();
+  const canBuyService = (id: number, onError) => {
+    return fetch(
+      "/course-videos/is-user-in-the-course",
+      { params: { id } },
+      { setToken: true }
+    );
+  };
+  return {
+    canBuyService,
+  };
+};
