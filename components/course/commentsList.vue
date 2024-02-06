@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CourseComment } from '~/types/comments'
+import type{ CourseComment } from '~/types/comments'
 const props = defineProps<{
   commentsList: CourseComment[]
 }>()
