@@ -1,3 +1,4 @@
+import { useAppAsyncData } from "./../useAppAsyncData";
 import { useAuthStore } from "~/store/Auth.store";
 import { useCourseDetailService } from "./useCourseDetails.service";
 import { useCheckCanBuyService } from "./useCourse.service";
@@ -8,8 +9,12 @@ export const useCourseDetails = async (slug: string) => {
   const { pending, data } = await useAppAsyncData(
     "course-details-" + slug,
     () => courseDetailsService(slug),
-    { server: true, lazy: true }
+    {
+      server: true,
+      lazy: true,
+    }
   );
+  
   return {
     pending,
     data,
