@@ -4,7 +4,7 @@ import {
   useCourseDetails,
   useCanBuyProvider
 } from '~/composables/course/usecourseDetails'
-import { CourseDetails } from '~/types/course'
+import type { CourseDetails } from '~/types/course'
 import my_pic from '~/assets/img/my_pic.jpg'
 const route = useRoute()
 const isFreeCourseModalOpen = ref<boolean>()
@@ -46,13 +46,12 @@ provide('--open-free-modal--', {
 <template lang="">
   <div v-if="coursePending">درحال دریافت اطلاعات....</div>
   <template v-if="!coursePending && courseDetails">
-    <section>
-      <div class="bg-[#220241] grid grid-cols-3 items-center">
+    <section class="py-4 lg:py-0">
+      <div class="bg-[#220241] lg:grid grid-cols-3 items-center py-4 lg:py-0">
         <app-image
           :src="courseDetails?.src"
           container-class=" drop-shadow-lg filter blur-[4px]"
         />
-
         <div class="flex flex-col items-center gap-4">
           <h2 class="font-bold prose-2xl text-white">
             {{ courseDetails?.title }}
@@ -64,7 +63,7 @@ provide('--open-free-modal--', {
       </div>
     </section>
     <nav class="bg-white sticky top-0 z-10">
-      <ul class="lg:flex gap-2">
+      <ul class="container x mandatory-scroll-snapping lg:flex gap-2">
         <li
           v-for="{ id, title, to, elementId } in courseDetailsNavbar"
           :key="id"
@@ -105,19 +104,30 @@ provide('--open-free-modal--', {
         >
           <div class="flex justify-between items-center">
             <div>
-              <h6 class="text-secondary card-title mb-3">
-                لیست ویدیو های دوره
-              </h6>
+              <div class="flex justify-between items-center">
+                <h6 class="text-secondary card-title mb-3">
+                  لیست ویدیو های دوره
+                </h6>
+                <div class="lg:hidden block">
+                  <app-button
+                    variant="ghost"
+                    @click="toggleFreeCourseModal"
+                    class="btn-sm text-link text-xs lg:text-base"
+                  >
+                    لیست ویدیو های رایگان
+                  </app-button>
+                </div>
+              </div>
               <span class="text-gray-400 text-xs"
                 >توجه! تمامی ویدئوهای دوره با vlc media player تست و بازبینی شده
                 اند.</span
               >
             </div>
-            <div>
+            <div class="hidden lg:block">
               <app-button
                 variant="ghost"
                 @click="toggleFreeCourseModal"
-                class="btn-sm text-link"
+                class="btn-sm text-link text-xs lg:text-base"
               >
                 لیست ویدیو های رایگان
               </app-button>
@@ -171,10 +181,10 @@ provide('--open-free-modal--', {
               <div>تعداد شرکت کنندگان</div>
               <div>{{ courseDetails?.userCounter || 0 }}</div>
             </div>
-            <course-buy-button :courseId="courseId" />
+            <course-buy-button :courseId="courseId" /> -->
           </section>
         </client-only>
-        <section class="p-4 bg-white rounded-box border-[1px] border-gray-200">
+        <!-- <section class="p-4 bg-white rounded-box border-[1px] border-gray-200">
           <div class="flex gap-3 items-center">
             <app-image :src="my_pic" container-class="rounded-full w-20 h-20" />
             <div class="space-y-2">
@@ -183,7 +193,7 @@ provide('--open-free-modal--', {
             </div>
           </div>
           <q>این یک متن و نقل قول تستی است.</q>
-        </section>
+        </section> -->
       </aside>
     </section>
   </template>
@@ -194,3 +204,23 @@ provide('--open-free-modal--', {
     />
   </client-only>
 </template>
+<style lang="css" scoped>
+.container {
+  display: flex;
+  flex: none;
+  overflow: auto;
+}
+.container.x {
+  width: 100%;
+  flex-flow: row nowrap;
+  overflow-y: hidden;
+}
+.x.mandatory-scroll-snapping {
+  scroll-snap-type: x mandatory;
+}
+.container > li {
+  text-align: center;
+  scroll-snap-align: center;
+  flex: none;
+}
+</style>

@@ -7,7 +7,7 @@ const emit = defineEmits<{
   (e: 'toggleAuthContent', authCon: AuthContent): void
 }>()
 import { useLogin } from '~/composables/auth/login/useLogin'
-import { LoginValues } from '~/types/auth/login'
+import type{ LoginValues } from '~/types/auth/login'
 const { login, submitting, error: loginErr } = useLogin()
 const onSubmit = (values: LoginValues) => {
   login(values)
@@ -65,4 +65,5 @@ const onSubmit = (values: LoginValues) => {
       </div>
     </section>
   </Form>
+  
 </template>
