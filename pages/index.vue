@@ -125,12 +125,11 @@
 import { useCourseService } from '~/composables/course/useCourse.service'
 import { ROUTES } from '~/configs/constants'
 const { getCourseList } = useCourseService()
-const { data, pending, error, execute } = useLazyAsyncData(
+const { data, pending, error, execute } = await useAppAsyncData(
   'course-list',
   () => getCourseList(),
-  { server: true}
+  { server: false }
 )
-
 </script>
 <style lang="css">
 .homeIntroBg {
