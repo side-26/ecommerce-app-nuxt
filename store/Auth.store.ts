@@ -1,5 +1,5 @@
 import { TOKEN_KEY } from "~/configs/constants";
-import { AuthState, Identity, Token } from "~/types/auth";
+import type{ AuthState, Identity, Token } from "~/types/auth";
 import { defineStore } from "pinia";
 const initalAuthState = (): AuthState => ({
   accessToken: null,
