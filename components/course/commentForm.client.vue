@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { Form } from 'vee-validate';
+import { Form } from 'vee-validate'
 import { useCreateComment } from '~/composables/course/useComments'
 import type { CommentBody } from '~/types/comments'
+import { useAuthStore } from '~/store/Auth.store'
 const props = defineProps<{
   courseId: number
 }>()
-const { sumbitting, onSubmit, hasFullName,commentSchema } = useCreateComment(
+const { sumbitting, onSubmit, hasFullName, commentSchema } = useCreateComment(
   toRef(props, 'courseId')!
 )
 </script>
 <template lang="">
+  
   <Form @submit="onSubmit" :validation-schema="commentSchema">
     <div v-if="!hasFullName" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
       <div>
