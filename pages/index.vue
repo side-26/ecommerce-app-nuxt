@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import { useCourseService } from '~/composables/course/useCourse.service'
+import { ROUTES } from '~/configs/constants'
+const { getCourseList } = useCourseService()
+const { data, pending } = await useAppAsyncData(
+  'course-list',
+  () => getCourseList(),
+  { server: false }
+)
+</script>
 <template lang="">
   <!-- intro content -->
   <section>
@@ -96,12 +106,7 @@
           </template>
           <template #actions>
             <div class="p-5 flex flex-col lg:flex-row justify-between bg-white">
-              <AppButton
-                variant="primary"
-                class="text-white btn-sm font-light prose-base order-2 lg:order-1 mt-4 lg:mt-0"
-              >
-                اضافه به سبد خرید
-              </AppButton>
+              <course-add-to-cart-btn :course-id="item?.id" />
               <div class="flex items-center gap-5 order-1 lg:order-2">
                 <AppPriceNumber
                   :price="item?.amount"
@@ -121,16 +126,7 @@
     </AppSlider>
   </section>
 </template>
-<script setup lang="ts">
-import { useCourseService } from '~/composables/course/useCourse.service'
-import { ROUTES } from '~/configs/constants'
-const { getCourseList } = useCourseService()
-const { data, pending, error, execute } = await useAppAsyncData(
-  'course-list',
-  () => getCourseList(),
-  { server: false }
-)
-</script>
+
 <style lang="css">
 .homeIntroBg {
   background-image: url('~/assets/img/images/home-header-background.jpeg');
