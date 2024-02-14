@@ -1,6 +1,6 @@
 export const queryStringify = (
-  baseTxt: string,
-  queryObj: Record<string, number>
+  baseTxt: string = "",
+  queryObj: Record<any, number | string>
 ) => {
   let queryTxt = "";
   let i = 0;
@@ -9,8 +9,20 @@ export const queryStringify = (
       i++;
       const value = queryObj[key];
       const sign = i === 1 ? "?" : "&";
-      queryTxt += JSON.stringify(`${sign}${key}=${value}`);
+      queryTxt += `${sign}${key}=${value}`;
     }
   }
   return baseTxt + queryTxt;
+};
+export const addSignToKey = (
+  key: string | number,
+  values: string[] | number[],
+  sign: string = "[]"
+): string => {
+  let queryStr: string = "";
+  values?.forEach((item, index) => {
+    const seprateSign = index === 0 ? "?" : "&";
+    queryStr += seprateSign + key + sign + "=" + item;
+  });
+  return queryStr;
 };
