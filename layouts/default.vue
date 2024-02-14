@@ -63,17 +63,25 @@ const toggleMenu = () => {
                 <app-button
                   variant="ghost"
                   @click="isAccountMenuOpen = !isAccountMenuOpen"
-                  class="relative"
+                  class=""
                 >
                   {{ authStore.getFullName }}
                 </app-button>
                 <ul
                   v-show="isAccountMenuOpen"
-                  class="flex flex-col gap-1 absolute -bottom-[105px] transition z-[100000] bg-white rounded-md overflow-hidden shadow-sm"
+                  class="flex flex-col gap-1 absolute top-[72px] transition z-[100000] bg-white rounded-md overflow-hidden shadow-sm"
                 >
                   <li class="border-b-[1px] border-gray-200 p-3 cursor-pointer">
                     <nuxt-link :to="ROUTES.profile" class="text-center text-sm">
                       پروفایل
+                    </nuxt-link>
+                  </li>
+                  <li class="border-b-[1px] border-gray-200 p-3 cursor-pointer">
+                    <nuxt-link
+                      :to="ROUTES.shoppingCart"
+                      class="text-center text-sm"
+                    >
+                      سبد خرید
                     </nuxt-link>
                   </li>
                   <li class="border-b-[1px] border-gray-200 p-3 cursor-pointer">
