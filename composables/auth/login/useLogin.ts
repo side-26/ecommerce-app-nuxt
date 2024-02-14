@@ -1,11 +1,6 @@
-import { FetchError } from "ohmyfetch";
-import { FetchCustomConfig } from "~/types/fetch";
 import { useLoginService } from "./useLogin.service";
-import { LoginValues } from "~/types/auth/login";
+import type { LoginValues } from "~/types/auth/login";
 import { useAuthStore } from "~/store/Auth.store";
-import type { AuthResponse } from "~/types/auth";
-import { FetchResult } from "nuxt/app";
-
 export const useLogin = () => {
   const submitting = ref<boolean>(false);
   const error = ref<string>("");
@@ -26,7 +21,6 @@ export const useLogin = () => {
             accessToken: res!.access_token,
             expiresIn: res!.expires_in,
             refreshToken: res!.refresh_token,
-            tokenType: res!.token_type,
           });
           authStore.setIdentity(res.identity);
         }
@@ -36,5 +30,5 @@ export const useLogin = () => {
       )
       .finally(() => (submitting.value = false));
   };
-  return { login, submitting, error };
+  return { login, submitting, error,  };
 };
