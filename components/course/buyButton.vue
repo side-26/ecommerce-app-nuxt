@@ -6,13 +6,15 @@ import { queryStringify } from '~/utils/helpers/queryStringify'
 const props = defineProps<{ courseId: number | undefined }>()
 const { canBuy, loading } = useCanBuyConsumer()
 const authStore = useAuthStore()
+const bankUrl = computed(() => BASE_URL + '/site/request')
 const goToBank = () => {
   const sendItemObj = {
-    key: authStore.getToken,
-    course_id: props.courseId
+    key: authStore.getToken!,
+    course_id: props.courseId!
   }
-  const bankUrl = queryStringify(BASE_URL, sendItemObj)
-  console.log(bankUrl)
+  const url = queryStringify(unref(bankUrl), sendItemObj)
+  window.location.assign(url);
+  // console.log(url)
 }
 </script>
 <template>
