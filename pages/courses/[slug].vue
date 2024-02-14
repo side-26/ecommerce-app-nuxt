@@ -6,12 +6,16 @@ import {
 } from '~/composables/course/usecourseDetails'
 import type { CourseDetails } from '~/types/course'
 import my_pic from '~/assets/img/my_pic.jpg'
+import { useAuthStore } from '~/store/Auth.store'
 const route = useRoute()
+const router = useRouter()
+const authStore = useAuthStore()
 const isFreeCourseModalOpen = ref<boolean>()
 const {
   data: courseDetails,
   pending: coursePending,
   currentPosition
+  // @ts-ignore
 } = await useCourseDetails(route.params.slug as string)
 const courseId = computed(() => courseDetails?.value?.id)
 useCanBuyProvider(courseId)
@@ -42,6 +46,9 @@ provide('--open-free-modal--', {
   isModalOpen: isFreeCourseModalOpen,
   toggleFreeCourseModal
 })
+const goToLogin = () => {
+  router.replace('/?need_auth=true')
+}
 </script>
 <template lang="">
   <div v-if="coursePending">درحال دریافت اطلاعات....</div>
@@ -181,10 +188,18 @@ provide('--open-free-modal--', {
               <div>تعداد شرکت کنندگان</div>
               <div>{{ courseDetails?.userCounter || 0 }}</div>
             </div>
-            <course-buy-button :courseId="courseId" /> -->
+            <app-button
+              v-if="!authStore.isLoggedIn"
+              @click="goToLogin"
+              variant="secondary"
+              class="w-full"
+            >
+              ورود / ثبت نام
+            </app-button>
+            <course-buy-button v-else :courseId="courseId" />
           </section>
         </client-only>
-        <!-- <section class="p-4 bg-white rounded-box border-[1px] border-gray-200">
+        <section class="p-4 bg-white rounded-box border-[1px] border-gray-200">
           <div class="flex gap-3 items-center">
             <app-image :src="my_pic" container-class="rounded-full w-20 h-20" />
             <div class="space-y-2">
@@ -193,7 +208,7 @@ provide('--open-free-modal--', {
             </div>
           </div>
           <q>این یک متن و نقل قول تستی است.</q>
-        </section> -->
+        </section>
       </aside>
     </section>
   </template>
