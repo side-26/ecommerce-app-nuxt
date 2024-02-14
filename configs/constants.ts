@@ -7,6 +7,7 @@ export const ROUTES = {
   articals: "/articals",
   aboutUs: "/about_us",
   profile: "/profile",
+  shoppingCart: "/profile/cart",
 };
 export const appNavbar: {
   id: number;
