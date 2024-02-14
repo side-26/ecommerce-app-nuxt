@@ -3,12 +3,15 @@
 import { useToast } from '~/composables/useToast'
 // @ts-ignore
 import { useAuthModal } from '~/composables/auth/useAuthModal'
-import { appToastKey } from './configs/constants'
 // @ts-ignore
 import { useAuthStore } from '~/store/Auth.store'
+// @ts-ignore
+
+import { useCartStore } from '~/store/Cart.store'
 const { isModalOpen, closeModal } = useAuthModal()
-const { toastInfo } = useToast(appToastKey)
+const { addNewToast, toastsList } = useToast()
 const authStore = useAuthStore()
+const cartStore = useCartStore()
 // @ts-ignore
 const { getIdentity } = useIdentity()
 // @ts-ignore
@@ -23,7 +26,7 @@ onMounted(() => {
 <template>
   <div dir="rtl">
     <NuxtLayout> </NuxtLayout>
-    <lazy-the-app-toast v-if="toastInfo.showToast" />
+    <lazy-the-app-toast v-if="toastsList?.length > 0" />
     <lazy-auth-modal v-if="isModalOpen" />
   </div>
 </template>
