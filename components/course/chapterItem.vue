@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useCanBuyConsumer } from '~/composables/course/useCourseDetails'
+import { useAuthStore } from '~/store/Auth.store'
+
 const props = defineProps<{
   id: number
   duration: number | string
@@ -7,9 +10,13 @@ const props = defineProps<{
   videoTitle: string
   firstItemId: number
 }>()
+const authStore = useAuthStore()
+const { canBuy } = useCanBuyConsumer()
 const getChapterCounter = (index: number) => {
   return index - props.firstItemId + 1
 }
+const isCourseBought = computed(() => !canBuy.value && authStore.isLoggedIn)
+console.log(canBuy.value, authStore.isLoggedIn)
 </script>
 <template lang="">
   <section
@@ -31,7 +38,7 @@ const getChapterCounter = (index: number) => {
       </div>
       <div>
         <svg
-          v-if="isDemo"
+          v-if="isDemo || isCourseBought"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
