@@ -1,16 +1,27 @@
 <script setup lang="ts">
+// @ts-ignore
 import { courseDetailsNavbar } from '~/configs/constants'
 import {
   useCourseDetails,
-  useCanBuyProvider
+  useCanBuyProvider,
+  useTransformData,
+  useProvideModalState
+  // @ts-ignore
 } from '~/composables/course/usecourseDetails'
+// @ts-ignore
+
 import type { CourseDetails } from '~/types/course'
+// @ts-ignore
+
 import my_pic from '~/assets/img/my_pic.jpg'
+// @ts-ignore
+
 import { useAuthStore } from '~/store/Auth.store'
+// @ts-ignore
 const route = useRoute()
+// @ts-ignore
 const router = useRouter()
 const authStore = useAuthStore()
-const isFreeCourseModalOpen = ref<boolean>()
 const {
   data: courseDetails,
   pending: coursePending,
@@ -19,36 +30,22 @@ const {
 } = await useCourseDetails(route.params.slug as string)
 const courseId = computed(() => courseDetails?.value?.id)
 useCanBuyProvider(courseId)
-const videoCount = computed(() => {
-  let count = 0
-  if (courseDetails.value) {
-    courseDetails?.value?.courseChapters.map(videos => {
-      count += videos.courseVideos?.length
-      courseDetails?.value?.courseChapters
-    })
-    return count
-  }
-  return 'درحال محاسبه...'
-})
-const totalCourseTime = computed(() => {
-  if (courseDetails?.value) {
-    const { hours, minutes, seconds } = courseDetails?.value?.courseDuration
-    return hours > 0 || minutes > 0 || seconds > 0
-      ? `${hours} : ${minutes} : ${seconds}`
-      : 'در حال ضبط'
-  }
-  return 'درحال محاسبه...'
-})
-const toggleFreeCourseModal = () => {
-  isFreeCourseModalOpen.value = !unref(isFreeCourseModalOpen)
-}
-provide('--open-free-modal--', {
-  isModalOpen: isFreeCourseModalOpen,
-  toggleFreeCourseModal
-})
+const { totalCourseTime, videoCount } = useTransformData(courseDetails)
+
+const { isFreeCourseModalOpen, toggleFreeCourseModal } = useProvideModalState()
 const goToLogin = () => {
   router.replace('/?need_auth=true')
 }
+// @ts-ignore
+useHead({
+  title: computed(() => unref(courseDetails)?.title),
+  meta: [
+    {
+      name: 'description',
+      content: computed(() => unref(courseDetails)?.meta_description || '')
+    }
+  ]
+})
 </script>
 <template lang="">
   <div v-if="coursePending">درحال دریافت اطلاعات....</div>

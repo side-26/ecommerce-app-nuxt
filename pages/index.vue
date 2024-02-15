@@ -7,6 +7,15 @@ const { data, pending } = await useAppAsyncData(
   () => getCourseList(),
   { server: false }
 )
+useHead({
+  title: 'به اکادمی لند خوش آمدید',
+  meta: [
+    {
+      name: 'description',
+      content: 'یک متن تستی برای سئو سایت است.'
+    }
+  ]
+})
 </script>
 <template lang="">
   <!-- intro content -->

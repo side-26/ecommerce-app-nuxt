@@ -1,5 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+//@ts-ignore
+useHead({
+  title: 'دوره های سایت اکادمی لند'
+})
+</script>
 <template>
-  <div>course page</div>
+  <div>در حال توسعه</div>
 </template>
 <style lang=""></style>

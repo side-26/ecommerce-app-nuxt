@@ -10,17 +10,23 @@ import { useAuthStore } from '~/store/Auth.store'
 import { useCartStore } from '~/store/Cart.store'
 const { isModalOpen, closeModal } = useAuthModal()
 const { addNewToast, toastsList } = useToast()
-const authStore = useAuthStore()
 const cartStore = useCartStore()
-// @ts-ignore
-const { getIdentity } = useIdentity()
+
+const authStore = useAuthStore()
 // @ts-ignore
 watchEffect(() => {
   if (authStore.isLoggedIn) closeModal()
 })
 // @ts-ignore
+const { getIdentity } = useIdentity()
+// @ts-ignore
 onMounted(() => {
   getIdentity()
+})
+useHead({
+  titleTemplate: newTitle => {
+    return newTitle ? `${newTitle} - اکادمی لند` : 'اکادمی لند'
+  }
 })
 </script>
 <template>
