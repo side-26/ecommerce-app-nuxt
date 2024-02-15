@@ -10,22 +10,22 @@ export const useRefreshTokenService = () => {
       expires_in: number;
     }
   >();
-  const authStore = useAuthStore();
-  const doRefreshTokenService = async (): Promise<
-     {
-        token: {
-          accessToken: string;
-          refreshToken: string;
-          expiresIn: number;
-        };
-      }
-  > => {
+
+  const doRefreshTokenService = (
+    refreshToken: string
+  ): Promise<{
+    token: {
+      accessToken: string;
+      refreshToken: string;
+      expiresIn: number;
+    };
+  }> => {
     return sendRefreshToken(
       "/oauth2/rest/token",
       {
         method: "post",
         body: {
-          refresh_token: authStore.getRefreshToken,
+          refresh_token: refreshToken,
           grant_type: "refresh_token",
           client_id: CLIENT_ID,
           client_secret: CLIENT_SECRET,
@@ -45,8 +45,8 @@ export const useRefreshTokenService = () => {
           },
         };
       }
-      return res
+      return res;
     });
   };
-  return doRefreshTokenService;
+  return { doRefreshTokenService };
 };

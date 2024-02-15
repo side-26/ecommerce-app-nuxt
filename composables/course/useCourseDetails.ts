@@ -2,6 +2,7 @@ import { useAppAsyncData } from "./../useAppAsyncData";
 import { useAuthStore } from "~/store/Auth.store";
 import { useCourseDetailService } from "./useCourseDetails.service";
 import { useCheckCanBuyService } from "./useCourse.service";
+import type { CourseDetails } from "~/types/course";
 type CAN_BUY = { loading: boolean; canBuy: boolean };
 export const useCourseDetails = async (slug: string) => {
   const { courseDetailsService } = useCourseDetailService();
@@ -14,7 +15,7 @@ export const useCourseDetails = async (slug: string) => {
       lazy: true,
     }
   );
-  
+
   return {
     pending,
     data,
@@ -73,5 +74,45 @@ const useCourseNavbarIntersection = () => {
   });
   return {
     currentPosition,
+  };
+};
+export const useTransformData = (courseDetails: Ref<CourseDetails>) => {
+  const videoCount = computed(() => {
+    let count = 0;
+    if (courseDetails.value) {
+      courseDetails?.value?.courseChapters.map((videos) => {
+        count += videos.courseVideos?.length;
+        courseDetails?.value?.courseChapters;
+      });
+      return count;
+    }
+    return "درحال محاسبه...";
+  });
+  const totalCourseTime = computed(() => {
+    if (courseDetails?.value) {
+      const { hours, minutes, seconds } = courseDetails?.value?.courseDuration;
+      return hours > 0 || minutes > 0 || seconds > 0
+        ? `${hours} : ${minutes} : ${seconds}`
+        : "در حال ضبط";
+    }
+    return "درحال محاسبه...";
+  });
+  return {
+    videoCount,
+    totalCourseTime,
+  };
+};
+export const useProvideModalState = () => {
+  const isFreeCourseModalOpen = ref<boolean>();
+  const toggleFreeCourseModal = () => {
+    isFreeCourseModalOpen.value = !unref(isFreeCourseModalOpen);
+  };
+  provide("--open-free-modal--", {
+    isModalOpen: isFreeCourseModalOpen,
+    toggleFreeCourseModal,
+  });
+  return {
+    isFreeCourseModalOpen,
+    toggleFreeCourseModal,
   };
 };

@@ -1,6 +1,7 @@
 import { TOKEN_KEY } from "~/configs/constants";
-import type{ AuthState, Identity, Token } from "~/types/auth";
+import type { AuthState, Identity, Token } from "~/types/auth";
 import { defineStore } from "pinia";
+import { useRefreshTokenService } from "~/composables/auth/useRefreshToken.service";
 const initalAuthState = (): AuthState => ({
   accessToken: null,
   expiresIn: null,
@@ -33,15 +34,21 @@ export const useAuthStore = defineStore("auth", {
     setIdentity(identityObj: Identity) {
       this.identity = identityObj;
     },
-    toggleRefreshingState(value:boolean){
-      this.isRefreshing=value
+    toggleRefreshingState(value: boolean) {
+      this.isRefreshing = value;
     },
-    toggleSuccessRefreshingState(value:boolean){
-      this.isRefreshSuccess=value
+    toggleSuccessRefreshingState(value: boolean) {
+      this.isRefreshSuccess = value;
     },
     clearStore(clearLocal: boolean = true) {
       Object.assign(this, initalAuthState());
       if (clearLocal) localStorage.removeItem(TOKEN_KEY);
+    },
+    doRefreshToken() {
+      console.log("fuck do refreshTRoken");
+      const { doRefreshTokenService } = useRefreshTokenService();
+
+      doRefreshTokenService(this.getRefreshToken as string);
     },
     initialStoreFromLocal() {
       let tokenObj: Token = {} as Token;
