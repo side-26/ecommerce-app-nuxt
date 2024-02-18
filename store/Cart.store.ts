@@ -16,7 +16,7 @@ export const useCartStore = defineStore("cart-store", {
   state: initalCartState,
   getters: {
     getStoreCartIds(state) {
-      return state.data.map((item) => item?.id || item?.course_id);
+      return state.data.map((item) => item?.id);
     },
     getCartLength(state) {
       return state.data?.length || 0;
