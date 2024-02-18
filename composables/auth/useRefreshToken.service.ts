@@ -14,7 +14,7 @@ export const useRefreshTokenService = () => {
   const doRefreshTokenService = (
     refreshToken: string
   ): Promise<{
-    token: {
+    tokens: {
       accessToken: string;
       refreshToken: string;
       expiresIn: number;
