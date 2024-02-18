@@ -5,7 +5,5 @@ export default defineNuxtPlugin(({ pinia }) => {
   cartStore.$subscribe(() => {
     cartStore.synceIdToLocal();
   });
-  // console.log("before getting");
   cartStore.getCartItemsList();
-  // console.log("after getting");
 });
