@@ -82,9 +82,9 @@ useHead({
     <div class="head text-center">
       <h3>دوره های آکادمی لند</h3>
     </div>
-    <AppSlider :items="data">
+    <lazy-app-slider v-if="data" :items="data">
       <template #item="{ item }">
-        <CourseCard
+        <course-card
           :key="item.id"
           :to="ROUTES.courses + '/' + item?.slug"
           class="relative lg:max-w-[27rem] w-[25.1rem] overflow-hidden"
@@ -130,9 +130,9 @@ useHead({
               </div>
             </div>
           </template>
-        </CourseCard>
+        </course-card>
       </template>
-    </AppSlider>
+    </lazy-app-slider>
   </section>
 </template>
 

@@ -17,6 +17,7 @@ const { deleting, deleteFromCart } = useDeleteFromCart(props.courseId)
         @click.stop.prevent="() => deleteFromCart(courseId)"
         :loading="deleting"
         :disabled="deleting"
+        v-bind="$attrs"
         variant="secondary"
         class="text-white btn-sm font-light prose-base order-2 lg:order-1 mt-4 lg:mt-0"
       >
@@ -27,6 +28,7 @@ const { deleting, deleteFromCart } = useDeleteFromCart(props.courseId)
         @click.stop.prevent="() => addToCart(courseId)"
         :loading="adding"
         :disabled="adding"
+        v-bind="$attrs"
         variant="primary"
         class="text-white btn-sm font-light prose-base order-2 lg:order-1 mt-4 lg:mt-0"
       >
