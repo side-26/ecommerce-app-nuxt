@@ -13,6 +13,7 @@ export const useFetchData = <R, T>() => {
     customConfig: FetchCustomConfig = {}
   ) => {
     config = { baseURL: BASE_URL, retry: 0, ...config };
+    customConfig = { goToLogin: true, toastError: true, ...customConfig };
     if (customConfig.setToken) {
       if (!config.headers) config.headers = {};
       config.headers["Authorization"] = `Bearer ${authStore.getToken}`;
@@ -27,6 +28,10 @@ export const useFetchData = <R, T>() => {
       })
       .catch((e) => {
         customConfig?.onError?.(e);
+        if (customConfig.ignoreErrors) {
+          return;
+        }
+        const { clearStore } = useAuthStore();
         const { response } = e;
         const getValidationErrors = () => {
           const errors = {} as Record<string, string>;
@@ -51,19 +56,25 @@ export const useFetchData = <R, T>() => {
             customConfig.onValidationFailed(getValidationErrors(), e);
           if (customConfig?.toastValidationFields?.length)
             toastValidation(customConfig?.toastValidationFields);
-        } else if (e.response && e.response.status === 401) {
+        } else if (response && response.status === 401) {
           return handleRefreshToken(e, url, config, customConfig)?.catch(
             (e) => {
-              console.error("error in refresh", e);
-              authStore.clearStore();
+              clearStore();
               goToLogin(customConfig);
             }
           ) as unknown as R;
-        } else if (e.response && e.response.status) {
-          showError({
-            statusCode: e.response.status,
-            statusMessage: e?.response?._data?.message,
-          });
+        } else {
+          const errorTxt =
+            response?.statusText ||
+            response?._data?.message ||
+            "خطای دریافت اطلاعات از سرور";
+          const errStatusCode = response?.status || 500;
+          if ((config.method || "").toLowerCase() == "get" || !config.method)
+            showError({
+              statusCode: errStatusCode,
+              statusMessage: errorTxt,
+            });
+          else if (customConfig.toastError) addNewToast(errorTxt, "error");
         }
       });
   };
@@ -80,10 +91,6 @@ export const useFetchData = <R, T>() => {
   ) {
     const authStore = useAuthStore();
     if (!authStore.isLoggedIn) {
-      console.error(
-        "send request that needs token while user is not logged in : ",
-        url
-      );
       return new Promise((_, reject) => {
         reject(e);
       });
@@ -100,11 +107,6 @@ export const useFetchData = <R, T>() => {
           () => authStore.isRefreshing,
           (isRefreshing) => {
             if (isRefreshing == false) {
-              console.log(
-                " authStore.isRefreshSuccess",
-                authStore.isRefreshSuccess,
-                config.params
-              );
               if (authStore.isRefreshSuccess) {
                 resolve(customFetch(url, config, customConfig));
               } else {

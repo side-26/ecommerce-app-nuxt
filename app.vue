@@ -23,6 +23,7 @@ const { getIdentity } = useIdentity()
 onMounted(() => {
   getIdentity()
 })
+// @ts-ignore
 useHead({
   titleTemplate: newTitle => {
     return newTitle ? `${newTitle} - اکادمی لند` : 'اکادمی لند'
