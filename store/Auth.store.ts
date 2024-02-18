@@ -45,10 +45,19 @@ export const useAuthStore = defineStore("auth", {
       if (clearLocal) localStorage.removeItem(TOKEN_KEY);
     },
     doRefreshToken() {
-      console.log("fuck do refreshTRoken");
+      // console.log("fuck do refreshTRoken");
+      this.isRefreshing = true;
       const { doRefreshTokenService } = useRefreshTokenService();
-
-      doRefreshTokenService(this.getRefreshToken as string);
+      doRefreshTokenService(this.getRefreshToken as string)
+        .then((res) => {
+          if (res !== undefined) {
+            console.log(res);
+            this.setToken(res.tokens, true);
+            this.isRefreshSuccess = true;
+            return res;
+          }
+        })
+        .finally(() => (this.isRefreshing = false));
     },
     initialStoreFromLocal() {
       let tokenObj: Token = {} as Token;
