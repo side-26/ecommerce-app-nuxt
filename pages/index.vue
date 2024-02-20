@@ -115,7 +115,7 @@ useHead({
           </template>
           <template #actions>
             <div class="p-5 flex flex-col lg:flex-row justify-between bg-white">
-              <course-add-to-cart-btn :course-id="item?.id" />
+              <course-cart-action-btn :course-id="item?.id" />
               <div class="flex items-center gap-5 order-1 lg:order-2">
                 <AppPriceNumber
                   :price="item?.amount"

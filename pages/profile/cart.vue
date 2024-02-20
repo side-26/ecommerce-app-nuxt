@@ -58,10 +58,10 @@ const cartStore = useCartStore()
 
           <template #actions>
             <div class="lg:p-5 flex lg:flex-row gap-4 bg-white">
-              <app-price-number :price="amountOff" class="hidden lg:block" />
-              <course-add-to-cart-btn
+              <app-price-number :price="amountOff" class="hidden lg:flex" />
+              <course-cart-action-btn
                 :course-id="id"
-                class="w-full text-xs lg:text-base"
+                class="w-full text-xs lg:text-base lg:w-max"
               />
             </div>
           </template>
