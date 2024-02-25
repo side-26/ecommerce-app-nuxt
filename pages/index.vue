@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import { useCourseService } from '~/composables/course/useCourse.service'
+import { useCourse } from '~/composables/course/useCourse'
 import { ROUTES } from '~/configs/constants'
-const { getCourseList } = useCourseService()
-const { data, pending } = await useAppAsyncData(
-  'course-list',
-  () => getCourseList(),
-  { server: false }
-)
+const { data, pending } = await useCourse()
+// @ts-ignore
 useHead({
   title: 'به اکادمی لند خوش آمدید',
   meta: [
@@ -82,8 +78,45 @@ useHead({
     <div class="head text-center">
       <h3>دوره های آکادمی لند</h3>
     </div>
+    <template v-if="pending">
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 px-5 md:px-10 lg:px-20">
+        <course-card
+          v-for="(item, index) in 4"
+          :key="index"
+          to=""
+          class="relative block overflow-hidden shadow-md"
+        >
+          <template #header>
+            <div class="w-full h-48">
+              <skeleton-text class="w-full h-full" />
+            </div>
+            <div
+              class="absolute top-2 left-0 rounded-r-full font-bold text-white px-2 py-1 text-sm z-10"
+            >
+              <skeleton-text class="w-5" />
+            </div>
+          </template>
+          <template #body>
+            <div class="bg-accent p-5 space-y-2">
+              <h3 class="pb-4 line-clamp-2 hover:text-primary transition">
+                <skeleton-text class="w-full h-10" />
+              </h3>
+              <skeleton-text class="w-4/6 h-5" />
+              <skeleton-text class="w-4/5 h-5" />
+              <skeleton-text class="w-4/6 h-5" />
+            </div>
+          </template>
+          <template #actions>
+            <div class="p-5 flex flex-wrap justify-between bg-white">
+              <skeleton-text class="w-5" />
+              <skeleton-text class="w-5" />
+            </div>
+          </template>
+        </course-card>
+      </div>
+    </template>
     <lazy-app-slider v-if="data" :items="data">
-      <template #item="{ item }">
+      <template v-if="data" #item="{ item }">
         <course-card
           :key="item.id"
           :to="ROUTES.courses + '/' + item?.slug"
