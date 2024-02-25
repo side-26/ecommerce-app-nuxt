@@ -3,7 +3,7 @@ export const CURRENCY = "تومان";
 export const TOKEN_KEY = "token";
 export const ROUTES = {
   home: "/",
-  courses: "/courses",
+  courses: "/course",
   articals: "/articals",
   aboutUs: "/about_us",
   profile: "/profile",
