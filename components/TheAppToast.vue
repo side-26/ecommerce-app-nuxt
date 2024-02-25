@@ -1,21 +1,20 @@
 <template>
-  <div
-    v-if="toastInfo.showToast"
-    @click="closeByClick()"
-    class="toast toast-center cursor-pointer"
+  <section
+    class="fixed bottom-0 left-1/2 right-1/2 translate-x-1/2 flex flex-col gap-2 w-max py-4"
   >
-    <div :class="`alert alert-${toastInfo.toastVariant}`">
-      <span>{{toastInfo.toastMsg}}</span>
+    <div
+      v-for="{ id, toastMsg, toastVariant } in toastsList"
+      :key="id"
+      @click="deleteToast(id)"
+      :class="`cursor-pointer toast-${toastVariant}`"
+    >
+      <div :class="`alert alert-${toastVariant}`">
+        <span>{{ toastMsg }}</span>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 <script setup lang="ts">
-import { useToast } from '~/composables/useToast';
-import { appToastKey } from '~/configs/constants';
-// const props=withDefaults(
-//   defineProps<{variant:'primary'|'error'|'warning'|'info'}>(),{
-//     variant:'primary'
-//   }
-// )
-const {toastInfo,closeByClick}=useToast(appToastKey)
+import { useToast } from '~/composables/useToast'
+const { addNewToast, toastsList, deleteToast } = useToast()
 </script>

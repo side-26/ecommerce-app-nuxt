@@ -1,4 +1,4 @@
-@import url('fonts.css');
+@import url("fonts.css");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -36,5 +36,11 @@
   }
   .content-container {
     @apply px-3 sm:px-12 lg:px-24 my-4 lg:my-6;
+  }
+  .course-details-box {
+    @apply p-7 rounded-box bg-white bordered border-gray-200 my-3 shadow-sm;
+  }
+  .comments-answer-box {
+    @apply t-row mr-4 text-gray-500 gap-3;
   }
 }

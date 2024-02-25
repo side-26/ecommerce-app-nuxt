@@ -1,13 +1,7 @@
-<template lang="">
-    <div>
-        
-    </div>
-</template>
-<script>
-export default {
-    
-}
+<template lang=""></template>
+<script setup lang="ts">
+useHead({
+  title: 'مقالات منتشر شده'
+})
 </script>
-<style lang="">
-    
-</style>
+<style lang=""></style>

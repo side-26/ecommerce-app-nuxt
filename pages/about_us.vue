@@ -1,13 +1,8 @@
-<template lang="">
-    <div>
-        
-    </div>
-</template>
-<script>
-export default {
-    
-}
+<script setup lang="ts">
+// @ts-ignore
+useHead({
+  title: 'درباره این پروژه'
+})
 </script>
-<style lang="">
-    
-</style>
+<template lang=""></template>
+<style lang=""></style>

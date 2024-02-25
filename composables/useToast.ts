@@ -1,42 +1,42 @@
-export const useToast = (toastKey: string) => {
-    const toastInfo = useState<
-        {
-            showToast: boolean,
-            toastMsg: string,
-            toastVariant: ToastProps
-        }
-    >(toastKey, () => {
-        return {
-            showToast: false,
-            toastMsg: '',
-            toastVariant: 'success'
-        }
-    })
-    const timeout = ref()
-    const closeByClick = () => {
-        closeToast(0)
-    }
-    const closeToast = (timeOut: number) => {
-        timeout.value = setTimeout(() => {
-            toastInfo.value.showToast = false;
-            toastInfo.value.toastMsg = ''
-        }, timeOut);
-    }
-    const showToast = (msg: string, variant: ToastProps = 'success') => {
-        toastInfo.value.showToast = true;
-        toastInfo.value.toastMsg = msg
-        toastInfo.value.toastVariant = variant
-    }
-    watchEffect(() => {
-        if (toastInfo.value.showToast)
-            closeToast(3000)
-    })
-    onBeforeUnmount(() => {
-        // console.log('timeout cleared!!');
-        clearTimeout(unref(timeout));
+import { appToastKey } from "~/configs/constants";
 
-    })
-    return {
-        showToast, toastInfo: unref(toastInfo), closeByClick
-    }
-}
+type ToastVariant = "success" | "info" | "warning" | "error";
+export const useToast = () => {
+  const toastsList = useState<
+    {
+      id: number;
+      toastMsg: string;
+      toastVariant: ToastVariant;
+    }[]
+  >(appToastKey, () => {
+    return [];
+  });
+  const timeout = ref();
+  const deleteToast = (deleteId: number) => {
+    toastsList.value = unref(toastsList).filter(({ id }) => id !== deleteId);
+  };
+  const addNewToast = (msg: string, variant: ToastVariant = "success") => {
+    toastsList.value = [
+      ...unref(toastsList),
+      {
+        id: new Date().getTime(),
+        toastMsg: msg,
+        toastVariant: variant,
+      },
+    ];
+  };
+  // watch(toastsList, (val) => {
+  //   if (val?.length === 0) clearTimeout(unref(timeout));
+  // });
+  // watchEffect(() => {
+  //   const firstToastId = unref(toastsList)[0]?.id;
+  //   timeout.value = setInterval(() => {
+  //     deleteToast(firstToastId);
+  //   }, 4000);
+  // });
+  return {
+    toastsList,
+    addNewToast,
+    deleteToast,
+  };
+};

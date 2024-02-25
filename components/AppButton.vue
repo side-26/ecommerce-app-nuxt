@@ -1,5 +1,9 @@
 <template>
-  <button :disabled="disabled || loading" :class="`btn btn-${variant}`">
+  <button
+    :type="type"
+    :disabled="disabled || loading"
+    :class="`btn btn-${variant}`"
+  >
     <slot v-if="!loading" />
     <span v-else class="loading loading-spinner"></span>
   </button>
@@ -7,14 +11,16 @@
 <script setup lang="ts">
 const props = withDefaults(
   defineProps<{
-    variant: "primary" | "accent" | "secondary"|"accent"|"link";
-    loading?: boolean;
-    disabled?: boolean;
+    variant?: 'primary' | 'accent' | 'secondary' | 'accent' | 'link' | 'ghost'
+    loading?: boolean
+    disabled?: boolean
+    type?: 'button' | 'submit' | 'reset'
   }>(),
   {
-    variant: "primary",
+    variant: 'primary',
     loading: false,
     disabled: false,
-  },
-);
+    type: 'button'
+  }
+)
 </script>

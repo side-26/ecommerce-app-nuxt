@@ -19,6 +19,8 @@ module.exports = {
     "btn-primary",
     "btn-accent",
     "btn-secondary",
+    "btn-link",
+    "btn-ghost",
     "bg-info",
     "bg-success",
     "bg-warning",
