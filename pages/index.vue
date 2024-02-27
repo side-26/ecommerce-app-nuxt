@@ -79,7 +79,9 @@ useHead({
       <h3>دوره های آکادمی لند</h3>
     </div>
     <template v-if="pending">
-      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 px-5 md:px-10 lg:px-20">
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 px-5 md:px-10 lg:px-20"
+      >
         <course-card
           v-for="(item, index) in 4"
           :key="index"
@@ -106,7 +108,7 @@ useHead({
               <skeleton-text class="w-4/6 h-5" />
             </div>
           </template>
-          <template #actions>
+          <template lang="html" #actions>
             <div class="p-5 flex flex-wrap justify-between bg-white">
               <skeleton-text class="w-5" />
               <skeleton-text class="w-5" />
@@ -122,7 +124,7 @@ useHead({
           :to="ROUTES.courses + '/' + item?.slug"
           class="relative lg:max-w-[27rem] w-[25.1rem] overflow-hidden"
         >
-          <template #header>
+          <template lang="html" #header>
             <div class="aspect-w-40 aspect-h-21">
               <div
                 class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-5"
@@ -136,7 +138,7 @@ useHead({
               {{ item?.percent }} %
             </div>
           </template>
-          <template #body>
+          <template lang="html" #body>
             <div class="bg-accent p-5">
               <h3 class="pb-4 line-clamp-2 hover:text-primary transition">
                 {{ item?.title }}
@@ -146,11 +148,12 @@ useHead({
               </p>
             </div>
           </template>
-          <template #actions>
+          <template lang="html" #actions>
             <div class="p-5 flex flex-col lg:flex-row justify-between bg-white">
               <course-cart-action-btn :course-id="item?.id" />
               <div class="flex items-center gap-5 order-1 lg:order-2">
                 <AppPriceNumber
+                  v-if="item?.percent"
                   :price="item?.amount"
                   class="line-through prose-sm"
                 />

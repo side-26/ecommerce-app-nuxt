@@ -3,7 +3,7 @@
 </script>
 <template>
   <section class="flex flex-col flex-1 min-h-screen">
-    <global-menu />
+    <header-menu />
     <main class="flex-grow">
       <nuxt-page />
     </main>
