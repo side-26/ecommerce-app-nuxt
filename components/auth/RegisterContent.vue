@@ -1,12 +1,20 @@
 <script setup lang="ts">
 // @ts-ignore
+import { Form } from 'vee-validate'
+import { useAuthModal } from '~/composables/auth/useAuthModal'
 import type { AuthContent } from '~/types/auth'
 const emit = defineEmits<{
   (e: 'toggleAuthContent', authCon: AuthContent): void
 }>()
+const { addNewToast } = useToast()
+const { closeModal } = useAuthModal()
+const sumbitRegisteration = () => {
+  closeModal()
+  addNewToast('ثبت نام نداریم🙂 از نام کاربری و پسورد admin لاگین کنید')
+}
 </script>
 <template>
-  <form>
+  <Form @submit="sumbitRegisteration">
     <section>
       <div>
         <app-text-input
@@ -33,7 +41,7 @@ const emit = defineEmits<{
       </div>
     </section>
     <section class="flex flex-col gap-1 mt-4">
-      <app-button class="w-full btn-secondary text-white"> ثبت نام</app-button>
+      <app-button type="submit" class="w-full btn-secondary text-white"> ثبت نام</app-button>
       <div class="flex justify-center py-2.5 bg-gray-100 mt-4">
         <app-button
           variant="link"
@@ -44,5 +52,5 @@ const emit = defineEmits<{
         >
       </div>
     </section>
-  </form>
+  </Form>
 </template>

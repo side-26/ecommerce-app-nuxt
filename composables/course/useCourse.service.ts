@@ -8,7 +8,7 @@ import { BaseCourseDto } from "./course.dto";
 export const useCourseService = () => {
   const fetch = useFetchData();
   const getCourseList = () => {
-    return fetch("/course/index?expand=src,percent,slug", {
+    return fetch("/course/index?expand=src,percent,slug,statusText", {
       method: "get",
     }).then((res) => {
       return res;
