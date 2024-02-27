@@ -10,13 +10,12 @@ const { isMobile, isDesktop, isWindows } = useDevice()
 const authStore = useAuthStore()
 const cartStore = useCartStore()
 const { logout } = useLogout()
-
 const isMenuOpen = ref<boolean>(false)
 const isAccountMenuOpen = ref<boolean>(false)
 const toggleMenu = () => {
   isMenuOpen.value = !unref(isMenuOpen)
 }
-onClickOutside(accountMenuRef, event => {
+onClickOutside(accountMenuRef, () => {
   isAccountMenuOpen.value = false
 })
 </script>
@@ -65,7 +64,7 @@ onClickOutside(accountMenuRef, event => {
             <template v-else>
               <app-button
                 variant="ghost"
-                @click.stop.prevent="isAccountMenuOpen = !isAccountMenuOpen"
+                @click.stop.prevent="isAccountMenuOpen = true"
                 :class="{ 'opacity-0': !authStore.getFullName }"
               >
                 {{ authStore.getFullName }}
@@ -88,6 +87,7 @@ onClickOutside(accountMenuRef, event => {
                   >
                     <div>سبد خرید</div>
                     <div
+                      v-if="cartStore.getCartLength"
                       class="bg-primary py-1 px-3 text-xs text-white rounded-full"
                     >
                       {{ cartStore.getCartLength }}
