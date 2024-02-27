@@ -11,29 +11,28 @@ export const useToast = () => {
   >(appToastKey, () => {
     return [];
   });
-  const timeout = ref();
+  // const timeout = ref();
   const deleteToast = (deleteId: number) => {
     toastsList.value = unref(toastsList).filter(({ id }) => id !== deleteId);
   };
-  const addNewToast = (msg: string, variant: ToastVariant = "success") => {
+  const addNewToast = (
+    msg: string,
+    variant: ToastVariant = "success",
+    timeout?: number
+  ) => {
+    const toastId = new Date().getTime();
     toastsList.value = [
       ...unref(toastsList),
       {
-        id: new Date().getTime(),
+        id: toastId,
         toastMsg: msg,
         toastVariant: variant,
       },
     ];
+    setTimeout(() => {
+      deleteToast(toastId);
+    }, timeout ?? 3000);
   };
-  // watch(toastsList, (val) => {
-  //   if (val?.length === 0) clearTimeout(unref(timeout));
-  // });
-  // watchEffect(() => {
-  //   const firstToastId = unref(toastsList)[0]?.id;
-  //   timeout.value = setInterval(() => {
-  //     deleteToast(firstToastId);
-  //   }, 4000);
-  // });
   return {
     toastsList,
     addNewToast,
